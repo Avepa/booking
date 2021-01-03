@@ -1,0 +1,29 @@
+varsion: "3.1"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 3306
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: 12345
+      DATABASE_DBName: booking
+      HTTTPSERVER_PORT: 9000
+
+
+  db:
+    build: ./sql-init
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: 12345
+      DATABASE_HOST: db
+    ports: 
+      - "33060:3306"
