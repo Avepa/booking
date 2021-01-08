@@ -55,10 +55,12 @@ func (r *BookingsMySQL) Delete(id int64) error {
 	return nil
 }
 
+// returns bookings by room id
+// sorted by start date
 func (r *BookingsMySQL) Get(id int64) ([]pkg.Booking, error) {
 	rows, err := r.db.Query(
 		"SELECT `id`, `date_start`, `date_end`"+
-			"	FOR `booking` WHERE `room_id = ?"+
+			"	FROM `bookings` WHERE `room_id` = ?"+
 			"	ORDER BY `date_start`",
 		id,
 	)
@@ -77,5 +79,20 @@ func (r *BookingsMySQL) Get(id int64) ([]pkg.Booking, error) {
 		bookings = append(bookings, b)
 	}
 
+	if len(bookings) == 0 {
+		check := true
+		row := r.db.QueryRow(
+			"SELECT EXISTS (SELECT id FROM room WHERE id = ?)",
+			id,
+		)
+
+		err = row.Scan(&check)
+		if err != nil {
+			return nil, pkg.ErrFailedGet
+		}
+		if !check {
+			return nil, pkg.ErrIDNotFound
+		}
+	}
 	return bookings, err
 }

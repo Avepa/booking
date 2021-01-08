@@ -79,7 +79,7 @@ func (h *Handler) getBookings(w http.ResponseWriter, r *http.Request) {
 }
 
 // example request:
-//		http://localhost/bookings/list?booking_id=245
+//		http://localhost/bookings/delete?booking_id=245
 func (h *Handler) deleteBookings(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("booking_id")
 	booking, err := strconv.ParseInt(id, 10, 64)

@@ -30,6 +30,15 @@ func TestRoomService_Add(t *testing.T) {
 			},
 			expectedID: 54,
 		},
+		{
+			name: "Price not valid",
+			input: pkg.Room{
+				Description: "Good",
+				Price:       -5.14,
+			},
+			mock:          func(r *mock_repository.MockRoom, room *pkg.Room) {},
+			expectedError: pkg.ErrPriceNotValid,
+		},
 	}
 
 	for _, tt := range tests {

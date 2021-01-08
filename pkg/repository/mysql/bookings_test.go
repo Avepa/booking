@@ -178,7 +178,7 @@ func TestBookingsMySQL_Get(t *testing.T) {
 
 				mock.ExpectQuery(
 					"SELECT `id`, `date_start`, `date_end`" +
-						"	FOR `booking` WHERE `room_id = (.+)" +
+						"	FROM `bookings` WHERE `room_id` = (.+)" +
 						"	ORDER BY `date_start`",
 				).WithArgs(1).WillReturnRows(rows)
 			},
@@ -206,7 +206,7 @@ func TestBookingsMySQL_Get(t *testing.T) {
 			mock: func() {
 				mock.ExpectQuery(
 					"SELECT `id`, `date_start`, `date_end`" +
-						"	FOR `booking` WHERE `room_id = (.+)" +
+						"	FROM `bookings` WHERE `room_id` = (.+)" +
 						"	ORDER BY `date_start`",
 				).WithArgs(2).WillReturnError(sql.ErrConnDone)
 			},

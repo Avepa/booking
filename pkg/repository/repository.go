@@ -17,6 +17,7 @@ type Room interface {
 	GetByDateDESC() ([]pkg.Room, error)
 	GetByPriceDESC() ([]pkg.Room, error)
 }
+
 type Bookings interface {
 	Add(room int64, bookings *pkg.Booking) error
 	Delete(id int64) error
