@@ -20,15 +20,6 @@ func main() {
 		DBName:   os.Getenv("DATABASE_DBName"),
 	}
 
-	/*
-		DBcfg := &mysql.Config{
-			Host:     "127.0.0.1",
-			Port:     "3306",
-			Username: "root",
-			Password: "12345",
-			DBName:   "mydb",
-		}*/
-
 	db, err := mysql.NewMySqlDB(DBcfg)
 	if err != nil {
 		log.Println(err)
@@ -43,11 +34,7 @@ func main() {
 		os.Getenv("HTTTPSERVER_PORT"),
 		handlers.Routes(),
 	)
-	/*
-		err = server.RunHTTPServer(
-			"80",
-			handlers.Routes(),
-		)*/
+
 	if err != nil {
 		log.Println(err)
 		return
