@@ -5,6 +5,10 @@ import (
 	"net/http"
 )
 
+type Status struct {
+	Status string `json:"status"`
+}
+
 type Error struct {
 	Err string `json:"error"`
 }

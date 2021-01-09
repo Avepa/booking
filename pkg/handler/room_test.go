@@ -284,6 +284,7 @@ func TestHandler_deleteRoom(t *testing.T) {
 		input                int64
 		inputBody            string
 		mock                 mockBehavior
+		expected             Status
 		expectedStatusCode   int
 		expectedResponseBody Error
 	}{
@@ -294,6 +295,7 @@ func TestHandler_deleteRoom(t *testing.T) {
 			mock: func(r *mock_service.MockRoom, id int64) {
 				r.EXPECT().Delete(id).Return(nil)
 			},
+			expected:           Status{Status: "ok"},
 			expectedStatusCode: http.StatusOK,
 		},
 		{
@@ -357,6 +359,11 @@ func TestHandler_deleteRoom(t *testing.T) {
 				t.Error("wrong error code received:", resp.StatusCode)
 				return
 			} else if resp.StatusCode == http.StatusOK {
+				s := Status{}
+				json.NewDecoder(resp.Body).Decode(&s)
+				if s != tt.expected {
+					t.Error("wrong status received")
+				}
 				return
 			}
 

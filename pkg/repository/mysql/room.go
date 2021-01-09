@@ -14,7 +14,8 @@ func NewRoomMySQL(db *sql.DB) *RoomMySQL {
 	return &RoomMySQL{db: db}
 }
 
-// uses fields: Description, Price.
+// Uses fields: Description, Price.
+// On successful creation,
 // in the id field records the room id.
 func (r *RoomMySQL) Add(room *pkg.Room) error {
 	res, err := r.db.Exec(

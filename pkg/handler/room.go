@@ -94,4 +94,10 @@ func (h *Handler) deleteRoom(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
+	s := Status{
+		Status: "ok",
+	}
+
+	json.NewEncoder(w).Encode(s)
 }

@@ -13,7 +13,6 @@ func NewRoomService(repo repository.Room) *RoomService {
 	return &RoomService{repo: repo}
 }
 
-//
 func (s *RoomService) Add(room *pkg.Room) (int64, error) {
 	if room.Price < 0.0 {
 		return 0, pkg.ErrPriceNotValid
